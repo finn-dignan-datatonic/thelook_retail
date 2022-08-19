@@ -89,10 +89,21 @@ view: users_layer {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: concat(${TABLE}.first_name, ${TABLE}.last_name) ;;
+
+
+  }
+
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

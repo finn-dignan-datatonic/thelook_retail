@@ -22,6 +22,7 @@ view: orders_layer {
       year
     ]
     sql: ${TABLE}.created_at ;;
+    drill_fields: [user_id, products_layer.name, distribution_centres.layer.name]
   }
 
   dimension_group: delivered {
@@ -91,16 +92,21 @@ view: orders_layer {
     type: number
     value_format_name: decimal_2
     # hidden: yes
-    sql: date_diff(${shipped_date}, ${created_date},  DAY)  ;;
+    sql: timestamp_diff(${shipped_raw}, ${created_raw},  DAY)  ;;
   }
 
   dimension: ship_to_delivery {
     type: number
     # hidden: yes
-    sql: date_diff(${delivered_date}, ${shipped_date}, DAY)  ;;
+    sql: timestamp_diff(${delivered_raw}, ${shipped_raw}, DAY)  ;;
   }
 
-
+  measure: is_returned {
+    type: number
+    value_format_name: percent_2
+    # hidden: yes
+    sql: sum(case when ${status} = "Returned" then 1 else 0 end)/count(*)  ;;
+  }
 
   measure: count {
     type: count

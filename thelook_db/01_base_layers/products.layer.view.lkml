@@ -38,6 +38,7 @@ view: products_layer {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    drill_fields: [distribution_centres.layer.name]
   }
 
   dimension: retail_price {
@@ -59,7 +60,7 @@ view: products_layer {
   dimension: profit_margin {
     type: number
     value_format_name: decimal_2
-    sql: (${retail_price} - ${cost})/${cost} ;;
+    sql: (${retail_price} - ${cost})/$ ${retail_price};;
   }
 
   measure: count {
