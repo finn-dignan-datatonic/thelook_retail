@@ -108,6 +108,13 @@ view: orders_layer {
     sql: sum(case when ${status} = "Returned" then 1 else 0 end)/count(*)  ;;
   }
 
+  measure: items_per_order {
+    type: number
+    value_format_name: decimal_2
+    # hidden: yes
+    sql: ${count}/${order_items_layer.count}  ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [order_id, users.last_name, users.id, users.first_name, order_items.count]
