@@ -34,7 +34,7 @@ explore: orders_layer {
 
   join: users_layer {
     type: left_outer
-    sql_on: ${users_layer.id} = ${orders_layer.user_id}} ;;
+    sql_on: ${users_layer.id} = ${orders_layer.user_id} ;;
     relationship: many_to_one
   }
 

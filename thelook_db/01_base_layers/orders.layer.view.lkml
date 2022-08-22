@@ -112,7 +112,7 @@ view: orders_layer {
     type: number
     value_format_name: decimal_2
     # hidden: yes
-    sql: ${count}/${order_items_layer.count}  ;;
+    sql: ${order_items_layer.count}/${count}  ;;
   }
 
   measure: count {
